@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -24,6 +25,8 @@ public class DownloadService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         final String link = intent.getStringExtra("link");
+        Toast.makeText(DownloadService.this, "Test", Toast.LENGTH_SHORT).show();
+        System.out.println("check 1 ");
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -46,6 +49,7 @@ public class DownloadService extends Service {
             // Example : www.google.com/keylogger.exe, filename = keylogger.exe
             String filename = new File(url.getFile()).getName();
             File file =  new File(Environment.getExternalStorageDirectory(),filename);
+            Toast.makeText(DownloadService.this, file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
 
             OutputStream output = null;
 

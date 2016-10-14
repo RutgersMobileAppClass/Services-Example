@@ -23,6 +23,13 @@
             android:name=".DownloadService"
             android:enabled="false"
             android:exported="false" />
+        <service
+            android:name=".MyService"
+            android:enabled="false"
+            android:exported="false" />
+        <service
+            android:name=".MyIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

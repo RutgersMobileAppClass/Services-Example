@@ -1,24 +1,16 @@
-package com.example.instructor.servicesexample;
+package com.example.instructor.servicesexample2;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.Environment;
 import android.os.IBinder;
-import android.util.Log;
 import android.widget.Toast;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class DownloadService extends Service {
 
+    public static final String STRING_ACTION = "FINISHED";
+
+    public DownloadService() {
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -30,17 +22,15 @@ public class DownloadService extends Service {
             @Override
             public void run() {
 
-                DownloadHelper.downloadFile(link,0);
+                //DownloadHelper.downloadFile(link,0);
 
                 Intent broadcast = new Intent();
-                broadcast.setAction("FINISHED");
+                broadcast.setAction(STRING_ACTION);
                 sendBroadcast(broadcast);
 
 
             }
         });
-
-        Toast.makeText(DownloadService.this, "Test 1 2 3", Toast.LENGTH_SHORT).show();
         thread.start();
 
 
@@ -50,13 +40,10 @@ public class DownloadService extends Service {
     }
 
 
+
     @Override
     public IBinder onBind(Intent intent) {
-
-
+        // TODO: Return the communication channel to the service.
         return null;
-
     }
-
-
 }

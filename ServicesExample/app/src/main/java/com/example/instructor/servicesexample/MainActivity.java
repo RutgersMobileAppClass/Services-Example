@@ -1,5 +1,7 @@
 package com.example.instructor.servicesexample;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Output;
 import android.os.Environment;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
@@ -24,6 +27,7 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     private EditText linkText;
+    private TextView resultText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,29 +35,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         linkText = (EditText) findViewById(R.id.linkText);
+        resultText = (TextView) findViewById(R.id.resultText);
 
     }
 
     public void downloadClick(View view) {
         final String link = linkText.getText().toString();
 
-        //Toast.makeText(MainActivity.this, "Test", Toast.LENGTH_SHORT).show();
-
-        File file =  new File(Environment.getExternalStorageDirectory(),"hey.text");
-        try {
-            PrintWriter print = new PrintWriter(file);
-            print.println("aoooo");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        System.out.println(file.getAbsolutePath());
-
         Intent intent = new Intent(this,DownloadService.class);
         intent.putExtra("link",link);
 
-        System.out.println("1234");
         startService(intent);
 
+    }
+
+    private class DownloadBroadcast extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            resultText.setText("Download Finished!");
+
+
+
+        }
     }
 
 
